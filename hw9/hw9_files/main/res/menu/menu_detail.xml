@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.lzh.test.MainActivity">
+    <item
+        android:id="@+id/menu_twitter"
+        android:icon="@drawable/share"
+        android:title="@string/twitter"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_favorite"
+        android:icon="@drawable/heart_outline_white"
+        android:title="@string/favorites"
+        app:showAsAction="always" />
+
+
+</menu>

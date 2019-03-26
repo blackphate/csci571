@@ -1,0 +1,1444 @@
+<html>
+
+<head>
+<link rel="stylesheet" 
+href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+</script>
+
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js">
+</script>
+
+<script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+
+<script src = "./angular.js"></script>
+<script src = "./moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+<style>
+table {
+	width:800px;
+    border-collapse: collapse;
+}
+
+
+
+ul li {display: inline;}
+
+#map{height: 400px;}
+
+.form-group.row .control-label:after{content: "*"; color: red;}
+.form-group.col-12.col-lg-3 .control-label:after{content: "*"; color: red;}
+
+.form-container {position:relative; left:10%; width:80%;}
+.btn-space{margin-left:10px;}
+.review-margin{margin-top:10px;}
+.margin-top{margin-top: 26px;}
+.photo-margin{margin:5px;}
+#rateYo{margin-left:10px}
+.bg-gray{background-color:#f4f4f4; border: 1px solid gray;}
+#output.ng-enter{position:relative; opacity: 0; left:100%; transition: 1s;}
+#output.ng-enter.ng-enter-active{opacity: 1; left:0}
+#favorite.ng-enter{position:relative; opacity: 0; left:100%;transition: 1s;}
+#favorite.ng-enter.ng-enter-active{opacity: 1; left:0}
+a.col-lg-3{padding:5px;}
+#place_detail_twittwer{padding:1px;}
+#init_street_view{padding:1px;}
+
+#output {
+    transition: all linear 0.5s;
+    left:0;
+    top:0;
+    position: relative;
+    height:auto;
+    width:auto;
+
+}
+
+#output2 {
+    transition: all linear 0.5s;
+    left:0;
+    top:0;
+    position: relative;
+    height:auto;
+    width:auto;
+
+}
+
+#favorite {
+    transition: all linear 0.5s;
+    left:0;
+    top:0;
+    position: relative;
+    height:auto;
+    width:auto;
+
+}
+
+
+#output.ng-hide {
+    transition: all linear 0s;
+    left:-1800px;
+    top:0;
+    position: relative;
+    height:0px;
+    width:auto;
+
+}
+
+#output2.ng-hide {
+    transition: all linear 0s;
+    left:1800px;
+    top:0;
+    position: relative;
+    height:0px;
+    width:auto;
+
+}
+
+#favorite.ng-hide {
+    transition: all linear 0s;
+    left:-1800px;
+    top:0;
+    position: relative;
+    height:0px;
+    width:auto;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+<div class = 'container margin-top bg-gray' >
+	<h4 class = 'text-center'>Travel and Entertainment Search</h4>
+<div class = "form-container">
+<form class = 'text-left needs-validation' id = "myform" novalidate>
+  <div class="form-group row">
+    <label for="keyword" class="col-12 col-lg-3 control-label">keyword</label>
+    <div class="col-12 col-lg-8">
+      <input type="text" class="form-control" name = "keyword" id="keyword" required pattern = "^.*\S.*$">
+        <div class = 'invalid-feedback'>
+    	Please enter a keyword.	
+    	</div>
+  </div>
+
+  </div>
+  
+  <div class="form-group row">
+    <label for="category" class="col-12 col-lg-3">Category</label>
+    <div class="col-12 col-lg-5">
+      <select class="custom-select" name = "category" id = "category">
+		<option selected>	Default	</option>
+		<option>	Airport	</option>
+		<option>	Amusement Park	</option>
+		<option>	Aquarium	</option>
+		<option>	Art Gallery	</option>
+		<option>	Bakery	</option>
+		<option>	Bar	</option>
+		<option>	Beauty Salon	</option>
+		<option>	Bowling Alley	</option>
+		<option>	Bus Station	</option>
+		<option>	Cafe	</option>
+		<option>	Campground	</option>
+		<option>	Car Rental	</option>
+		<option>	Casino	</option>
+		<option>	Lodging	</option>
+		<option>	Movie Theater	</option>
+		<option>	Museum	</option>
+		<option>	Night Club	</option>
+		<option>	Park	</option>
+		<option>	Parking	</option>
+		<option>	Restaurant	</option>
+		<option>	Shopping Mall	</option>
+		<option>	Stadium	</option>
+		<option>	Subway Station	</option>
+		<option>	Taxi Stand	</option>
+		<option>	Train Station	</option>
+		<option>	Transit Station	</option>
+		<option>	Travel Agency	</option>
+		<option>	Zoo	</option>		
+	  </select>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="distance" class="col-12 col-lg-3">Distance(miles)</label>
+    <div class="col-12 col-lg-5">
+      <input type="text" class="form-control" id="distance" name = "distance" placeholder = '10'>
+    </div>
+  </div>
+  
+ <div class = 'form-group row'>
+  <div class = "form-group col-12 col-lg-3">
+  	<label for="loc" class="control-label">From</label>
+  </div>
+  <div class = "form-group col-12 col-lg-9 text-left">
+	<div class="form-check">
+	  <input class="form-check-input" type="radio" name = "location" id="Here" checked>
+	  <label class="form-check-label" for="curr">
+		Current location
+	  </label>
+	</div>
+	<div class="form-check">
+	  <input class="form-check-input" type="radio" name = "location" id="location" >
+	  <label class="form-check-label" for="other">
+		Other. Please specify: 
+	  </label>
+	</div> 
+    <div class="col-12 col-lg-10">
+      <input type="text" class="form-control" id="place" name = "place" placeholder = 'Enter a location' required disabled pattern = "^.*\S.*$">
+        <div class = 'invalid-feedback'>
+    		Please enter a location
+    	</div>
+    </div>	
+   </div>
+  </div>
+  
+  <div class = "form-group row" >
+	<button class="btn btn-primary" type="submit" name = "submit" id = 'submit' disabled><i class="fa fa-search" aria-hidden="true"></i>Submit</button>
+	<button type="button" class="btn btn-outline-secondary btn-space" id = 'clear'>Clear</button>
+  </div>
+  
+  
+</form>
+
+</div>
+
+</div>
+
+<div ng-app = "myapp" mg-controller = "myController" ng-init = "favorite = false;detail = false">
+
+<ul class="nav nav-pills mb-2 justify-content-center review-margin" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" ng-click = "favorite = false;detail = false" id = 'resultbutton' data-toggle="pill" href="javascript:void(0)" role="tab" aria-selected="true">Results</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" ng-click = "favorite = true;detail = false" id = 'favoritebutton' data-toggle="pill" href="javascript:void(0)" role="tab" aria-selected="false">Favorites</a>
+  </li>
+</ul>
+
+
+
+
+<div id = 'map1'></div>
+
+<div id = 'output' ng-hide = "favorite || detail" class = "container">
+</div>
+
+
+<div id = 'favorite' ng-hide = "!favorite || detail" class = "container">
+</div>
+
+
+<div id = 'output2' ng-hide = "!detail" class = "container"></div>
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Open Hours</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = 'modal_text'>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+
+
+<script>
+
+var favorite_item_array = [];
+var user_start_loc;
+var user_ip_loc;
+var user_des_loc;
+var json_page_data = [];
+var num_favorite = localStorage.length;
+var submit_valid = false;
+var favorite_page = false;
+var curr_page_table = {results:[]};
+var curr_detail_data = {};
+var no_records = $('<div class="alert alert-warning" role="alert">').text("No records");
+var error_records = $('<div class="alert alert-danger" role="alert">').text("Failed to get search results");
+var div_progress = $("<div class = 'progress'>").append(
+	$('<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">')
+);
+var formArray;
+
+
+$("#myform").submit(function(event){
+	$("#output").append(div_progress);
+	json_page_data = [];
+	event.preventDefault();
+	var form = $("form").serialize();
+	formArray = $("form").serializeArray();
+	console.log(formArray);
+	if($("#Here").is(":checked")){
+		user_start_loc = user_ip_loc;
+		form += "&lat=" + user_start_loc.lat + "&lng=" + user_start_loc.lng;
+		console.log(form);	
+		$.getJSON("/nearby?" + form, function(data){
+			try{
+				curr_page_table = data;
+				//placeTable();
+				placesTable(data);
+			}
+			catch(err){
+				$("#output").html("");
+				$("#output").append(error_records);
+			}
+		});
+	}
+	else if($("#location").is(":checked")){
+		$.getJSON("/geo?" + form, function(data){
+			try{
+				if(data.hasOwnProperty("loc")){
+					var loc = [data.loc.lat,data.loc.lng];
+					user_start_loc = {"lat" : loc[0], "lng": loc[1]};
+					form += "&lat=" + loc[0] + "&lng=" + loc[1];
+					$.getJSON("/nearby?" + form, function(data){
+						curr_page_table = data;
+						placesTable(data);
+					});
+				}
+				else{
+					$("#output").html("");
+					$("#output").append(no_records)
+				}
+			}
+			catch(err){
+				$("#output").append(error_records);
+			}		
+		});
+	}
+	$.each(formArray,function(i,item){
+		if(item.name == "place"){
+			$("#Here").prop("checked", false);
+			$("#location").prop("checked", true);
+			$("#place").prop("disabled",false);
+			$("#place").val(item.value);
+		}
+		else if(item.name != "location"){
+			$("#" + item.name).val(item.value);
+		}
+	})
+});
+
+
+
+$(document).on("click", "#clear" ,function(){
+	document.getElementById("myform").reset();
+	$("#output").html("");
+	$("#output2").html("");
+	$("#favorite").html("");
+	curr_page_table = {results:[]};
+	curr_detail_data = {};
+	$("#place").prop("disabled", true);
+});
+
+
+
+$("#Here").click(function(){
+	$("#place").prop('disabled',true);
+	if(submit_valid && !disableSubmit()){
+		$("#submit").prop("disabled", false);
+	}	
+	else {$("#submit").prop("disabled", true);}	
+});
+$("#location").click(function(){
+	$("#place").prop('disabled',false);
+	if(submit_valid && !disableSubmit()){
+		$("#submit").prop("disabled", false);
+	}	
+	else {$("#submit").prop("disabled", true);}	
+});
+
+
+$(document).ready(function(){
+	var url = "http://ip-api.com/json";
+	$.getJSON(url, function(data){
+		try{
+			user_start_loc = {"lat" :data.lat, "lng": data.lon};
+			user_ip_loc = user_start_loc;
+			submit_valid = true;
+		}
+		catch(err){
+			url = "https://ipapi.co/json";
+			$.getJSON(url, function(data){
+				try{
+					user_start_loc = {"lat" :data.latitude, "lng": data.longitude};
+					user_ip_loc = user_start_loc;
+					submit_valid = true;			
+				}
+				catch(err){		
+					$.getJSON("/geo?place=University of Southern California", function(data){
+						try{
+							user_start_loc = {"lat" : data.loc.lat, "lng": data.loc.lng};
+							user_ip_loc = user_start_loc;
+							submit_valid = true;
+						}
+						catch(err){
+							console.log("err");	
+						}
+					});
+				}
+			});
+		}
+	});
+	
+});
+
+
+
+
+$(document).ready(function(){
+	loadLocalStorage();
+});
+
+$(document).on("click", "#favoritebutton",function(){
+	//console.log(favorite_item_array);
+	favorite_page = true;
+	makeFavoriteTable(favorite_item_array, 0);
+	
+
+});
+
+$(document).on("click", "#resultbutton",function(){
+	//console.log(favorite_item_array);
+	favorite_page = false;
+	placesTable(curr_page_table);
+
+});
+	
+
+//var autocomplete = new google.maps.places.Autocomplete(document.getElementById("keyword"));
+
+
+
+</script>
+
+<script>
+$("#keyword").on("input",function(){
+	//console.log("It works");
+	var forms = document.getElementsByClassName('needs-validation');
+	var validation = Array.prototype.filter.call(forms, function(form) {
+		form.classList.add('was-validated');	
+	});		
+	if(submit_valid && !disableSubmit()){
+		$("#submit").prop("disabled", false);
+	}	
+	else {$("#submit").prop("disabled", true);}	
+});
+$("#place").on("input",function(){
+	//console.log("It works");
+	var forms = document.getElementsByClassName('needs-validation');
+	var validation = Array.prototype.filter.call(forms, function(form) {
+		form.classList.add('was-validated');	
+	});		
+	if(submit_valid && !disableSubmit()){
+		$("#submit").prop("disabled", false);
+	}
+	else {$("#submit").prop("disabled", true);}	
+});
+</script>
+
+
+
+<script>
+
+function disableSubmit(){
+	if($("#Here").prop("checked") == true){
+		if($.trim($("#keyword").val()) == "")	return true;
+	}
+	if($("#location").prop("checked") == true){
+		if($.trim($("#keyword").val()) == "" || $.trim($("#place").val()) == "")	return true;
+	}
+}
+
+
+
+
+
+function loadLocalStorage(){
+	favorite_item_array = [];
+	for(var i = 0; i < localStorage.length;i++){	
+		var json_favorite_place = JSON.parse(localStorage.getItem(localStorage.key(i)));
+		favorite_item_array.push(json_favorite_place);		
+	}
+	console.log(favorite_item_array);
+	console.log(localStorage);
+}
+
+function containsItem(item){
+	var contains = false;
+	$.each(favorite_item_array,function(i,data){
+		if(item.place_id == data.place_id)	contains = true;
+	})
+	return contains;
+}
+
+function deleteItem(item){
+
+	for(var i = 0;i < localStorage.length;i++){
+		var key = localStorage.key(i);
+		var json_item = JSON.parse(localStorage.getItem(key));
+		if(json_item.place_id == item.place_id){
+			localStorage.removeItem(key);
+		}
+	}
+	loadLocalStorage();
+}
+
+
+
+function initInfo(place){
+	$("#nav-info").off("click");
+	
+	$("#place_detail_button").prop("disabled", false);
+	$("#place_detail_twitter").prop("disabled", false);
+	var tag = "https://twitter.com/intent/tweet?text=";
+	var text = "Check out " + place.name;
+	text += " located at " + place.vicinity;
+	if(place.hasOwnProperty("website")) text += " Website: " + place.website;
+	else text += " Website: " + place.url;
+	//console.log(text);
+	tag += encodeURIComponent(text);
+	
+	tag += "&hashtags=TravelAndEntertainmentSearch";
+	//console.log(tag);
+	$("#twitter_tag").attr("href", tag);
+
+
+
+
+	var table = $("<table class='table table-striped'>");
+	var tbody = $("<tbody>");
+	var tr = $("<tr>");
+	if(place.hasOwnProperty("formatted_address")){
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Address"),
+			$("<td>").text(place.formatted_address)
+		));
+	}
+	if(place.hasOwnProperty("international_phone_number")){
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Phone Number"),
+			$("<td>").text(place.international_phone_number)
+		));
+	}
+	if(place.hasOwnProperty("price_level")){
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Price Level"),
+			$("<td>").text("$".repeat(place.price_level))
+		));
+	}
+	if(place.hasOwnProperty("rating")){
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Rating"),
+			$("<td>").append(
+				$("<div class = 'row'>").append(
+					$("<div>").text(place.rating),
+					$("<div id = 'rateYo' class = 'inforate'>")
+				),
+			)
+		));
+		$(function(){
+			$(".inforate").rateYo({
+				rating: place.rating,
+				readOnly: true,
+				starWidth: "15px"
+			});
+		});
+	}
+	
+	if(place.hasOwnProperty("url")){
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Google Page"),
+			$("<td>").append($("<a target=_blank'>").attr("href", place.url).text(place.url))
+		));
+	}
+	if(place.hasOwnProperty("website")){
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Website"),
+			$("<td>").append($("<a target=_blank'>").attr("href", place.website).text(place.website))
+		));
+	}
+	if(place.hasOwnProperty("opening_hours")){
+		var open_hours = place.opening_hours;
+		var local_time = moment().utcOffset(place.utc_offset);
+		var day = (local_time.day() + 6) % 7;
+		//console.log(local_time.format());
+		//console.log(day);
+		var current_day = open_hours.weekday_text[day].split(": ");
+		var hours_text = open_hours.open_now ? ("Open now: " + current_day[1]) : "Closed";
+		
+		var hour_table = $("<table class = 'table'>");
+		var hour_tbody = $("<tbody>");
+		hour_tbody.append($("<tr>").append(
+			$("<td>").append($("<b>").text(current_day[0])),
+			$("<td>").append($("<b>").text(current_day[1]))
+		
+		));
+		$.each(open_hours.weekday_text,function(i,item){
+			if(i != day){
+				var other_day = item.split(": ");
+				hour_tbody.append($("<tr>").append(
+					$("<td>").text(other_day[0]),
+					$("<td>").text(other_day[1])
+		
+				));
+				
+			}
+			
+		});
+		hour_table.append(hour_tbody);
+		$("#modal_text").html("");
+		$("#modal_text").append(hour_table);
+		
+		tbody.append($("<tr>").append(
+			$("<th scope = 'row'>").append("Hours"),
+			$("<td>").append(
+				$("<span>").text(hours_text + "   "),
+				$("<a href = 'javascript:void(0)' id = 'open_hours' data-toggle = 'modal' data-target = '.modal'>").text("Daily open hours")	
+			)
+		));
+	}
+	table.append(tbody);
+	$("#nav-info").append(table);
+
+}
+
+function initMap(place){
+
+	$("#nav-map").off("click");
+
+
+	var panel = $("<div class = 'form-row'>");
+	var row = $("<div class = 'form-group col-lg-4'>");
+	var label = $("<label for = 'from'>");
+	label.text("From");
+	var input = $("<input class = 'form-control' id = 'map-from' value = 'Your Location'>");
+	row.append(label,input);
+	panel.append(row);
+	
+	
+	
+	
+	
+	$("#output2").on("input","#map-from",function(){
+		console.log($.trim($("#map-from").val()));
+		if($.trim($("#map-from").val()) == ""){
+			$("#map_submit").prop("disabled",true);
+		}
+		else {
+			$("#map_submit").prop("disabled",false);
+		}
+	});
+	
+	
+	row = $("<div class = 'form-group col-lg-4'>");
+	label = $("<label for = 'to'>");
+	label.text("To");
+	input = $("<input class = 'form-control' id = 'map-to' readonly>").val(place.vicinity);
+	row.append(label,input);
+	panel.append(row);
+	
+	row = $("<div class = 'form-group col-lg-2'>");
+	label = $("<label for = 'mode'>");
+	label.text("Mode");
+	options = $("<select class = 'form-control' id = 'map-mode'>");
+	var option1 = $("<option value = 'DRIVING' selected>").text("Driving");
+	var option2 = $("<option value = 'BICYCLING'>").text("Bicycling");
+	var option3 = $("<option value = 'TRANSIT'>").text("Transit");
+	var option4 = $("<option value = 'WALKING'>").text("Walking");
+	options.append(option1,option2,option3,option4);
+	row.append(label,options);
+	panel.append(row);
+	
+	row = $("<div class = 'form-group col-lg-2 text-right'>");
+	label = $("<label for = 'submit'>").text("  ");
+	input = $("<input type = 'button' class = 'form-control btn btn-primary margin-top col-lg-10' id = 'map_submit' value = 'Get Directions'>");
+	row.append(label, input);
+	panel.append(row);
+	
+	var street_view_button = $("<button type='button' class='btn btn-outline-secondary' id = 'init_street_view'>").append($("<img style = 'width:35px;height:35px;' id = 'street_icon'>").attr("src", "photo/Pegman.png"));
+	$("#nav-map").append(panel, street_view_button, "<div id = 'map'>");
+	
+	
+	if($("#location").prop("checked") == true)	{
+		var name = $("#place").val();
+		$("#map-from").val(name);
+	}
+
+	
+	
+	var directionsDisplay = new google.maps.DirectionsRenderer;
+	var directionsService = new google.maps.DirectionsService;
+	var has_street_view = false;
+	var panorama;
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+	  zoom: 13,
+	  center: user_des_loc
+	});
+	
+	var marker = new google.maps.Marker({
+		position: user_des_loc,
+		map: map,
+	});
+	
+	directionsDisplay.setMap(map);
+
+	
+	$("#nav-map").on("click", "#init_street_view", function(){
+		if(!has_street_view){
+			//$("#map").html("");
+			has_street_view = true;
+			panorama = new google.maps.StreetViewPanorama(document.getElementById('map'),
+				{position: user_des_loc,
+				pov: {heading: 165, pitch: 0},
+				zoom: 1
+				});	
+				
+			panorama.setVisible(true);
+			$("#street_icon").attr("src", "photo/Map.png");	
+		}
+		else{
+			$("#street_icon").attr("src", "photo/Pegman.png");
+			panorama.setVisible(false);		
+			has_street_view = false;
+		}
+	});
+	
+	
+	
+	//var display = new google.maps.DirectionsRenderer;
+	$("#nav-map").append("<div id = 'detailroute'>");
+
+	
+
+	
+	$("#nav-map").on("click", "#map_submit",function(){
+		marker.setMap(null);
+		var start = $("#map-from").val().toLowerCase();
+		var request = {
+			origin: (start == "your location" || start == "my location") ? user_start_loc : start,
+			destination: user_des_loc,
+			travelMode: $("#map-mode").val(),
+			provideRouteAlternatives: true
+		};
+		directionsService.route(request, function(response, status) {
+				if (status === 'OK') {
+					//console.log(response);
+					//var routes = response.routes;
+					$("#detailroute").html("");
+					/*
+					directionsDisplay = new google.maps.DirectionsRenderer({
+						map: map,
+						directions: response,
+						routeIndex: 0
+					});
+					*/
+					directionsDisplay.setDirections(response);
+					directionsDisplay.setPanel(document.getElementById("detailroute"));
+				}
+		});			
+	});
+			
+
+}
+
+function initPhoto(place){
+	console.log(place);
+	if(place.hasOwnProperty("photos")){
+		var phototag = $("<div class = 'container'>");
+		var photorow = $("<div class = 'row'>");
+		try{
+			$.each(place.photos, function(i,item){
+				console.log(item);
+				var img;
+				var a;
+				var height = item.height;
+				var width = item.width;
+				var photo = item.getUrl({'maxWidth':width, 'maxHeight': height});
+				img = $("<img class = 'img-thumbnail col-12' style = 'width:100%;height:260px;'>").attr('src', photo);
+				if(i % 4 == 1){
+					a = $("<a target = '_black' class='col-lg-3'>").attr("href",photo);
+				
+				}
+				else{
+					a = $("<a target = '_black' class='col-lg-3'>").attr("href",photo);
+				}
+				a.append(img);
+				photorow.append(a);
+				if((i + 1) % 4 == 0){
+					phototag.append(photorow);
+					photorow = $("<div class = 'row'>");
+				}
+				if(i == place.photos.length - 1) phototag.append(photorow);	
+			});
+			$("#nav-photo").append(phototag);
+		}
+		catch(err){$("#nav-photo").append(error_records);}
+	}
+	else {
+		console.log("No photos");
+		$("#nav-photo").append($('<div class="alert alert-warning" role="alert">').text("No records"));
+		//$("#nav-photo").append($("<div>").text("123"));
+	}
+}
+
+function initReview(place){
+
+	var review_tab = $("<div class = 'btn-group dropdown btn-space review-margin'>");
+	var sort_tab = $("<div class = 'btn-group dropdown btn-space review-margin'>");
+	review_tab.append(
+		$('<button class="btn btn-secondary dropdown-toggle" id = "review_button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">').text("Google Reviews")
+	);
+	sort_tab.append(
+		$('<button class="btn btn-secondary dropdown-toggle" id = "sort_button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">').text("Defalut Order")
+	);	
+	var div_review = $('<div class="dropdown-menu" id = "reviews">');
+	div_review.append(
+		$('<a class="dropdown-item" id="googlereview" href="javascript:void(0)">').text("Google Review"),
+		$('<a class="dropdown-item" id="yelpreview" href="javascript:void(0)">').text("Yelp Review")
+	);
+	
+	var div_sort = $('<div class="dropdown-menu" id = "reviewsort">');
+	div_sort.append(
+		$('<a class="dropdown-item" id="defaultorder" href="javascript:void(0)">').text("Default Order"),
+		$('<a class="dropdown-item" id="highestrate" href="javascript:void(0)">').text("Highest Rating"),
+		$('<a class="dropdown-item" id="lowestrate" href="javascript:void(0)">').text("Lowest Rating"),
+		$('<a class="dropdown-item" id="mostrecent" href="javascript:void(0)">').text("Most Recent"),
+		$('<a class="dropdown-item" id="leastrecent" href="javascript:void(0)">').text("Least Recent")
+	
+	);
+	review_tab.append(div_review);
+	sort_tab.append(div_sort);
+	$("#nav-review").append(review_tab, sort_tab);
+
+	var query = "name=" + encodeURIComponent(place.name);
+	var vic = place.vicinity;
+	query += "&address1=" + encodeURIComponent(vic.substring(0, Math.min(vic.length,64)));
+	var city,state,country;
+	$.each(place.address_components, function(index, value){
+		if(value.types[0] == "locality")	city = value;  
+		if(value.types[0] == "administrative_area_level_1")	 state = value ;
+		if(value.types[0] == "country")	country = value ;	
+	});
+	query += "&city=" + encodeURIComponent(city == null ? state.long_name : city.long_name);
+	query += "&state=" + state.short_name;
+	query += "&country=" + country.short_name;
+	
+
+	$.getJSON('/yelp?' + query, function(data){
+		var google = true;
+		var yelpreviews = (data.status != "Not Found") ? data.reviews.slice() :[];
+		var googlereviews = (place.hasOwnProperty("reviews")) ? place.reviews.slice() : [];
+		$("#nav-review").append($("<div id = 'googlereviewtable' class = 'review-margin'>"));
+		$("#nav-review").append($("<div id = 'yelpreviewtable' class = 'review-margin'>"));
+		makeGoogleReviews(googlereviews);
+		$("#reviews").on("click", "#googlereview", function(){
+			google = true;
+			$("#review_button").text("Google Reviews");
+			makeGoogleReviews(googlereviews);
+		});
+		$("#reviews").on("click", "#yelpreview", function(){
+			google = false;
+			$("#review_button").text("Yelp Reviews");
+			makeYelpReviews(yelpreviews);
+		});
+		$("#reviewsort").on("click", "#defaultorder",function(){
+			googlereviews = (place.hasOwnProperty("reviews")) ? place.reviews.slice() : [];
+			yelpreviews = (data.status != "Not Found") ? data.reviews.slice() :[];
+			$("#sort_button").text("Default Order");
+			if(google == true) makeGoogleReviews(googlereviews);
+			else	makeYelpReviews(yelpreviews);
+		});
+		$("#reviewsort").on("click", "#highestrate",function(){
+			$("#sort_button").text("Highest Rating");
+			if(yelpreviews.length != 0)	yelpreviews.sort(function(a,b){return b.rating - a.rating});
+			if(googlereviews.length != 0) googlereviews.sort(function(a,b){return b.rating - a.rating});
+			if(google == true) makeGoogleReviews(googlereviews);
+			else	makeYelpReviews(yelpreviews);
+		});
+		$("#reviewsort").on("click", "#lowestrate",function(){
+			$("#sort_button").text("Lowest Rating");
+			if(yelpreviews.length != 0)	yelpreviews.sort(function(a,b){return a.rating - b.rating});
+			if(googlereviews.length != 0)	googlereviews.sort(function(a,b){return a.rating - b.rating});
+			if(google == true) makeGoogleReviews(googlereviews);
+			else	makeYelpReviews(yelpreviews);
+		});
+		$("#reviewsort").on("click", "#mostrecent",function(){
+			$("#sort_button").text("Most Recent");
+			if(yelpreviews.length != 0)	yelpreviews.sort(function(a,b){return moment(a.time_created).isBefore(b.time_created)});
+			if(googlereviews.length != 0)	googlereviews.sort(function(a,b){return b.time - a.time});
+			if(google == true) makeGoogleReviews(googlereviews);
+			else	makeYelpReviews(yelpreviews);
+		});
+		$("#reviewsort").on("click", "#leastrecent",function(){
+			$("#sort_button").text("Least Recent");
+			if(yelpreviews.length != 0)	yelpreviews.sort(function(a,b){return moment(b.time_created).isBefore(a.time_created)});
+			if(googlereviews.length != 0)	googlereviews.sort(function(a,b){return a.time - b.time});
+			if(google == true) makeGoogleReviews(googlereviews);
+			else	makeYelpReviews(yelpreviews);
+		});		
+		
+				
+	});
+
+
+}
+
+function makeGoogleReviews(review){
+	$("#googlereviewtable").html("");
+	$("#yelpreviewtable").html("");
+	if(review.length == 0)	{
+		$("#googlereviewtable").append(no_records);
+		return;
+	}
+	var div_review = $("<div class = 'container'>");
+	$.each(review, function(i,item){
+		var row = $("<div class = 'row img-thumbnail'>");
+		if(item.hasOwnProperty("profile_photo_url")){
+			var img = $("<img style = 'width:50px; height: 50px;'>").attr("src", item.profile_photo_url);
+			row.append($("<div class = 'col-3 col-lg-1'>").append($("<a target=_blank'>").append(img).attr("href", item.author_url)))
+		}
+		else {row.append($("<div class = 'col-3 col-lg-1'>").append($("<a target=_blank'>").attr("href", item.author_url)))}
+		var mom = moment.utc([1970,0,1]);
+		mom.add(item.time, "s");
+		mom.local();
+		row.append(
+			$("<div class = 'col-9 col-lg-11'>").append(
+				$("<div>").append($("<a target=_blank'>").text(item.author_name).attr("href", item.author_url)),
+				$("<div class = 'row'>").append(
+					$("<div id = 'rateYo'>").attr("class", "grate" + i).text(""),
+					$("<div class = 'text-secondary'>").text(mom.format("YYYY-MM-DD HH:MM:ss"))
+				),
+				$("<div>").text(item.text)
+			)
+		);
+		$(function(){
+			$(".grate" + i).rateYo({
+				rating: item.rating,
+				readOnly: true,
+				starWidth: "10px"
+			});
+		});
+		div_review.append(row);
+	});
+	$("#googlereviewtable").append(div_review);
+
+}
+
+function makeYelpReviews(review){
+	$("#googlereviewtable").html("");
+	$("#yelpreviewtable").html("");
+	console.log(review);
+	if (review.length == 0)	{
+		$("#yelpreviewtable").append(no_records);
+		return;
+	}
+	var div_review = $("<div class = 'container'>");
+	$.each(review, function(i,item){
+		var row = $("<div class = 'row img-thumbnail'>");
+		if(item.user.hasOwnProperty("image_url")){
+			var img = $("<img style = 'width:50px; height: 50px;'>").attr("src", item.user.image_url);
+			row.append($("<div class = 'col-lg-1 col-3'>").append($("<a target=_blank'>").append(img).attr("href", item.url)))
+		}
+		else {row.append($("<div class = 'col-lg-1 col-3'>").append($("<a target=_blank'>").attr("href", item.url)));}
+		row.append(	
+			$("<div class = 'col-lg-11 col-9'>").append(
+				$("<div>").append($("<a target=_blank'>").text(item.user.name).attr("href", item.url)),
+				$("<div class = 'row'>").append(
+					$("<div id = 'rateYo'>").attr("class", "yrate" + i).text(""),
+					$("<div class = 'text-secondary'>").text(item.time_created)
+				),
+				$("<div>").text(item.text)
+			)
+		);
+		$(function(){
+			$(".yrate" + i).rateYo({
+				rating: item.rating,
+				readOnly: true,
+				starWidth: "10px"
+			});
+		});
+		div_review.append(row);
+	});
+	$("#yelpreviewtable").append(div_review);
+
+}
+
+
+
+
+function getDetails(item){
+	var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("keyword"));
+	var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("place"));
+	if(typeof item == "undefined"){
+		return;
+	}
+	curr_detail_data = item;
+	var placeid = item.place_id;
+	var map = new google.maps.Map($("#map1").get(0));
+	var service = new google.maps.places.PlacesService(map);
+	user_des_loc = item.geometry.location;
+	$("#output2").append(div_progress);
+	$("#output2").off("click");
+	service.getDetails({placeId: placeid}, function(place,status){
+		/*
+		$("#output").html("");
+		$("#favorite").html("");
+		*/
+		$("#output2").html("");
+		
+		//console.log(place);
+		var item = place;
+		$("#output2").append(
+			$("<div class = 'text-center'>").append(
+				$("<h4>").text(item.name)
+			)
+		)
+			
+		var div_row = $("<div class = 'row'>");
+		div_row.append(
+			$("<button class = 'btn btn-outline-secondary col-3 col-lg-1' id = 'detail_list_button' ng-click = 'detail = false'>").text("< List")
+		);
+		var button_div = $("<div class = 'col-lg-11 col-9 text-right'>")
+		var button_star_place = $('<button type="button" class="btn btn-outline-secondary" id = "place_detail_button" disabled>');
+		
+		$("#output2").on("click","#detail_list_button",function(){
+			$("#output2").html("");
+			if(!favorite_page){
+				placesTable(curr_page_table);
+			}
+			else	makeFavoriteTable(favorite_item_array, 0)
+		})
+		
+		if(!containsItem(item)){
+			button_star_place.append($("<i class = 'fa fa-star-o' style='font-size:20px;'>"));
+		}
+		
+		else{
+			button_star_place.append($("<i class = 'fa fa-star' style='font-size:20px;color:yellow'>"));
+		}
+		
+
+
+		button_div.append(button_star_place);		
+		
+		
+		$("#output2").on("click", "#place_detail_button", function(){
+			if(!containsItem(item)){
+				$("#place_detail_button").html("");
+				localStorage.setItem(item.place_id, JSON.stringify(item));
+				loadLocalStorage();
+				//console.log(localStorage);
+				num_favorite++;
+				$("#place_detail_button").append($("<i class = 'fa fa-star' style='font-size:20px;color:yellow'>"));
+			}
+			else{
+				$("#place_detail_button").html("");
+				deleteItem(item);
+				//console.log(localStorage);
+				$("#place_detail_button").append($("<i class = 'fa fa-star-o' style='font-size:20px;'>"));
+			}					
+		});		
+		
+		
+ 		var button_twitter_place = $('<button type="button" class="btn btn-outline-secondary btn-space" id = "place_detail_twittwer" disabled>');
+		var twitter_a = $("<a id = 'twitter_tag'>").attr("href", "javascript:void(0)");
+		twitter_a.append($("<img src = 'photo/Twitter.png' style = 'width:35px; height: 35px'>"));
+		button_twitter_place.append(twitter_a);
+		
+		button_div.append(button_twitter_place);
+		div_row.append(button_div);
+		$("#output2").append(div_row);
+		
+		var nav = $("<nav>");
+		var tab = $("<div class = 'nav nav-tabs justify-content-end' id = 'nav-tab' role = 'tablist'>");
+		var a;
+		
+		a = $("<a class = 'nav-item nav-link' id = 'nav-info-tab' data-toggle = 'tab' href = '#nav-info' role = 'tab' aria-controls = 'nav-info' aria-selected = 'true'>");
+		a.text("Info");
+		tab.append(a);
+		a = $("<a class = 'nav-item nav-link' id = 'nav-photo-tab' data-toggle = 'tab' href = '#nav-photo' role = 'tab' aria-controls = 'nav-photo' aria-selected = 'false'>");
+		a.text("Photos");
+		tab.append(a);		
+		a = $("<a class = 'nav-item nav-link' id = 'nav-map-tab' data-toggle = 'tab' href = '#nav-map' role = 'tab' aria-controls = 'nav-map' aria-selected = 'false'>");
+		a.text("Map");
+		tab.append(a);		
+		a = $("<a class = 'nav-item nav-link' id = 'nav-review-tab' data-toggle = 'tab' href = '#nav-review' role = 'tab' aria-controls = 'nav-review' aria-selected = 'false'>");
+		a.text("Reviews");
+		tab.append(a);
+		nav.append(tab);							
+		
+		var div = $("<div class = 'tab-content' id = 'nav-tabContent'>");
+		var info = $("<div class = 'tab-pane fade active show' id = 'nav-info' role = 'tabpanel' aria-labelledby = 'nav-info-tab'>");
+		var photo = $("<div class = 'tab-pane fade' id = 'nav-photo' role = 'tabpanel' aria-labelledby = 'nav-photo-tab'>");	
+		var map = $("<div class = 'tab-pane fade' id = 'nav-map' role = 'tabpanel' aria-labelledby = 'nav-map-tab'>");
+		var review = $("<div class = 'tab-pane fade' id = 'nav-review' role = 'tabpanel' aria-labelledby = 'nav-review-tab'>");
+		div.append(info,photo,map,review);
+		$("#output2").append(nav, div);
+
+
+		output2 = $("#output2")
+		angular.element(output2).injector().invoke(function($compile) {
+			var scope = angular.element(output2).scope();
+			$compile(output2)(scope);
+		});		
+		
+		initMap(place);
+		initReview(place);
+		initPhoto(place);
+		initInfo(place);
+		if($("#map-from").length != 0){
+			var autocomplete3 = new google.maps.places.Autocomplete(document.getElementById("map-from"));
+		}
+	});
+
+}
+
+
+
+
+function placesTable(data){
+	//console.log(json_page_data);
+	var result = data.results;
+	$("#output").html("");
+	/*
+	$("#output2").html("");
+	*/
+	$("#output").off("click");
+	if(result.length == 0){
+		$("#output").append(no_records);
+		return;
+	}
+	
+	var div_detail_button = $("<div class = 'text-right'>");
+	div_detail_button.append(
+		$("<button id = 'table_list_button' type = 'button' class = 'btn btn-outline-secondary' ng-click = 'detail = true' disabled>").text("Details >")
+	);
+
+	$("#output").append(div_detail_button);
+
+	if(!jQuery.isEmptyObject(curr_detail_data)) {
+		$("#table_list_button").prop("disabled", false);
+	}
+
+		
+	$("#output").on("click","#table_list_button",function(){
+		getDetails(curr_detail_data);
+	});
+	
+
+		
+	var table = $("<table class = 'table'>");
+	var thead = $("<thead>");
+	var th = $("<tr>");
+	th.append(
+		$("<th scope = 'col'>").text("#"),
+		$("<th scope = 'col'>").text("Category"),
+		$("<th scope = 'col'>").text("Name"),
+		$("<th scope = 'col'>").text("Address"),
+		$("<th scope = 'col'>").text("Favorite"),
+		$("<th scope = 'col'>").text("Details")
+	);
+	thead.append(th);
+	table.append(thead);
+	var tbody = $("<tbody>");
+	var num;
+	$.each(result, function(i, item){
+	
+		//console.log(item);
+		var img = $("<img>").attr("src",item.icon);
+		var button_star = $("<button type = 'button' class = 'btn btn-outline-secondary'>").attr("id", "s" + i);
+		var button_detail = $("<button type = 'button' class = 'btn btn-outline-secondary' ng-click = 'detail = true'>").text(">").attr("id", "b" + i);
+		
+		
+
+		
+		if(!containsItem(item)){
+			button_star.append($("<i class = 'fa fa-star-o' style='font-size:20px;'>"));
+		}
+		
+		else{
+			button_star.append($("<i class = 'fa fa-star' style='font-size:20px;color:yellow'>"));
+		}
+		
+		var tr = $("<tr>").append	(
+			$("<th scope = 'row'>").text(i + 1),
+			$("<td>").append(img),
+			$("<td>").text(item.name),
+			$("<td>").text(item.vicinity),
+			$("<td>").append(button_star),
+			$("<td>").append(button_detail)
+		).attr("id", "detailtable" + i);	
+		tbody.append(tr);		
+		
+		$("#output").on("click", "#s" + i, function(){
+			if(!containsItem(item)){
+				$("#s" + i).html("");
+				localStorage.setItem(item.place_id, JSON.stringify(item));
+				loadLocalStorage();
+				//console.log(localStorage);
+				num_favorite++;
+				$("#s" + i).append($("<i class = 'fa fa-star' style='font-size:20px;color:yellow'>"));
+			}
+			else{
+				$("#s" + i).html("");
+				deleteItem(item);
+				//console.log(localStorage);
+				$("#s" + i).append($("<i class = 'fa fa-star-o' style='font-size:20px;'>"));
+			}					
+		});
+		
+		if(!jQuery.isEmptyObject(curr_detail_data)) {
+			if(item.place_id == curr_detail_data.place_id){
+				num = i;
+			}
+		}
+		
+		$("#output").on("click", "#b" + i,function(){
+			getDetails(item);			
+		});
+		
+		
+	});
+	table.append(tbody);
+	$("#output").append(table);
+	
+	
+	$(".mark").removeAttr("class");
+	$("#detailtable" + num).attr("class","mark");
+
+	
+	
+	var table_div = $("<div class = 'text-center'>");
+	if(json_page_data.length != 0){
+		var previous = $("<button id = 'previous' type='button' class='btn btn-outline-dark'>").text("Previous");
+		table_div.append(previous);
+		$("#output").on("click", "#previous", function(){	
+			var json_data = json_page_data.splice(json_page_data.length - 1, 1);
+			curr_page_table = json_data[0];	
+			placesTable(json_data[0]);
+		});
+	}
+	if(data.hasOwnProperty("next_page_token")){
+		var next = $("<button id = 'next' type='button' class='btn btn-outline-dark btn-space'>").text("Next");
+		table_div.append(next);
+		$("#output").on("click", "#next", function(){
+			json_page_data.push(data);
+			$("#output").html("");
+			$("#output").append(div_progress);
+			$.getJSON("/page?token=" + data.next_page_token, function(data){
+				curr_page_table = data;
+				placesTable(data);
+	
+			});		
+	
+		});
+	
+	}
+	$("#output").append(table_div);	
+	
+	output = $("#output")
+	angular.element(output).injector().invoke(function($compile) {
+ 		var scope = angular.element(output).scope();
+  		$compile(output)(scope);
+	});
+	
+	
+}
+
+function makeFavoriteTable(array, page){
+	$("#favorite").html("");
+	
+	//$("#output2").html("");
+	$("#favorite").off("click");
+	if(favorite_item_array.length == 0){
+		$("#favorite").append(no_records);
+		return;
+	}
+	//console.log(favorite_item_array);
+	
+	var fav_detail_button = $("<div class = 'text-right'>");
+	fav_detail_button.append(
+		$("<button id = 'fav_list_button' type = 'button' class = 'btn btn-outline-secondary' ng-click = 'detail = true' disabled>").text("Details >")
+	);
+
+	$("#favorite").append(fav_detail_button);
+
+	if(!jQuery.isEmptyObject(curr_detail_data)) {
+		$("#fav_list_button").prop("disabled", false);
+	}
+
+	$("#favorite").on("click","#fav_list_button",function(){
+		getDetails(curr_detail_data);
+	});
+
+	
+	var remain_item = Math.min(localStorage.length - page * 20, 20);
+	var favorite_array_table = array.slice(20 * page, 20 * page + remain_item); 
+	var table = $("<table class = 'table'>");
+	var thead = $("<thead>");
+	var th = $("<tr>");
+	th.append(
+		$("<th scope = 'col'>").text("#"),
+		$("<th scope = 'col'>").text("Category"),
+		$("<th scope = 'col'>").text("Name"),
+		$("<th scope = 'col'>").text("Address"),
+		$("<th scope = 'col'>").text("Favorite"),
+		$("<th scope = 'col'>").text("Details")
+	);
+	thead.append(th);
+	table.append(thead);
+	var tbody = $("<tbody>");
+	var num;
+	$.each(favorite_array_table, function(i, item){
+		var img = $("<img>").attr("src",item.icon);
+		var trash_icon = $("<i class = 'fa fa-trash'>");
+		var button_trash = $("<button type = 'button' class = 'btn btn-outline-secondary'>").attr("id", "t" + i).append(trash_icon);
+		var button_detail = $("<button type = 'button' class = 'btn btn-outline-secondary' ng-click = 'detail = true'>").text(">").attr("id", "b" + i);
+		
+		var tr = $("<tr>").append	(
+			$("<th scope = 'row'>").text(i + 1),
+			$("<td>").append(img),
+			$("<td>").text(item.name),
+			$("<td>").text(item.vicinity),
+			$("<td>").append(button_trash),
+			$("<td>").append(button_detail)
+		).attr("id", "favoritetable" + i);	
+		tbody.append(tr);
+		
+		if(!jQuery.isEmptyObject(curr_detail_data)) {
+			if(curr_detail_data.place_id == item.place_id){
+				num = i;
+			}
+		}
+			
+		$("#favorite").on("click", "#t" + i, function(){
+			deleteItem(item);
+			makeFavoriteTable(favorite_item_array, 0);	
+		});
+		
+		$("#favorite").on("click", "#b" + i,function(){
+			console.log(item);
+			getDetails(item);			
+		});
+		
+	});
+	table.append(tbody);
+	$("#favorite").append(table);
+	
+	$(".mark").removeAttr("class");
+	$("#favoritetable" + num).attr("class","mark");
+
+	
+	var fav_div = $("<div class = 'text-center'>")
+	
+	if(page > 0){
+		var previous = $("<button id = 'previous_favorite' type='button' class='btn btn-outline-dark'>").text("Previous");
+		$("#favorite").on("click", "#previous_favorite",function(){
+			makeFavoriteTable(array,page - 1);
+		
+		});
+		fav_div.append(previous);
+	}
+
+	if((localStorage.length - (page + 1) * 20) > 0){
+		var next = $("<button id = 'next_favorite' type='button' class='btn btn-outline-dark btn-space'>").text("Next");
+		$("#favorite").on("click", "#next_favorite",function(){
+			makeFavoriteTable(array,page + 1);
+		
+		});
+		fav_div.append(next);
+	}
+
+	$("#favorite").append(fav_div);
+
+
+	output = $("#favorite")
+	angular.element(output).injector().invoke(function($compile) {
+ 		var scope = angular.element(output).scope();
+  		$compile(output)(scope);
+	});
+}
+
+
+
+
+
+
+</script>
+
+
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX-2M4rVMh_8V-cPkh5fvtb2DrNTCa-t4&libraries=places&callback=getDetails">
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,323 @@
+/*css hw3 file*/
+
+
+
+
+
+
+
+
+/*Basic Elements*/
+
+html{
+	margin: 0;
+	padding: 0;	
+}
+
+header{
+	background-color: white;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	
+}
+
+footer{
+	margin-top: 270px;
+}
+
+main{
+	background: white;
+}
+
+section{
+	padding: 0;
+}
+
+div{
+}
+
+ul{
+	border-top: 1px #e8e5e5 solid;
+	width: 550px;
+	list-style: none;
+	padding-left: 100px;	
+	margin-bottom: 0px;
+}
+
+li{
+	display: inline-block;
+	margin: 5px 60px 5px 0px;
+}
+
+nav{
+	font-family: Helvetica;
+	font-size: 10px;
+	font-weight: 500;
+}
+
+a{
+	text-decoration: none;
+}
+
+
+/*For Backup Useage
+aside{
+	display: inline-block;
+	float: left;
+	position: relative;
+	left: 70px;
+	top: 60px;
+}
+
+article{
+	display:inline-block;
+	float: left;
+	position: relative;
+	left: 400px;
+}
+End*/
+
+
+/*Link Elements*/
+a:link{
+	color: black;
+}
+
+a:visited{
+	color: #6d6d70;
+}
+
+a:active{
+	color: blue;
+}
+
+nav a:hover{
+	color: #c19a49;
+}
+
+section a:hover{
+	color: #6d6d70;
+}
+
+/*specific divs*/
+header h1{
+	font-family: helvetica;
+	font-size: 35px;
+	font-weight: 300;
+	color: #c19a49;
+	text-indent: 240px;
+	letter-spacing: 10px;
+	margin: 0 0 20px 0;
+}
+
+header h2{
+	font-family: helvetica;
+	font-size: 10px;
+	color: #5b5b59;
+	text-indent: 50px;
+	padding: 0;
+	font-weight: 700;
+	margin: 0;
+}
+
+h3.yellow{
+	padding-left: 5px;
+	font-size: 20px;
+	color: #c19a49;
+	font-style: italic;
+	margin: 0;
+	letter-spacing: 1px;
+	font-weight: 400;
+	
+}
+
+h3.brown{
+	font-family: serif;
+	font-size: 18px;
+	color: #c4a156;
+	font-style: italic;
+	margin: 0;
+	font-weight: 400;
+}
+
+
+h3.gray{
+	padding-left: 2px;
+	font-size: 20px;
+	color: #8d8e8e;
+	margin: 0;
+	font-weight: 600;
+	font-family: serif;
+}
+
+h2.top{
+	margin-top: 10px;
+}
+
+#crop{
+	background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image6.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	z-index: -1;
+	width:650px;
+	height:360px;
+	overflow: hidden;
+	background-position: -205px 30px;
+}
+
+#crop2{
+	background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image5.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	z-index: -1;
+	width: 650px;
+	height: 270px;
+	background-size: contain;
+	position: absolute;
+	overflow: hidden;
+	background-position: 0 120px;
+}
+
+
+
+header .wrapper1{
+	width:855px;
+	height:420px;
+}
+
+header .wrapper2{
+	width:650px;
+	height:450px;
+}
+
+
+img.resize1{
+	width: 100%;
+	height: 100%;
+	
+}
+
+
+
+
+.yellow{
+	color: #efc140;
+}
+
+
+
+.lbox{
+	vertical-align: top;
+	display:inline-block;
+	width: 230px;
+	height: auto;
+	margin-top: 80px;
+	margin-left: 85px;
+	margin-right: 20px;
+}
+
+.rbox{
+	vertical-align: top;
+	display:inline-block;
+	width: 230px;
+	height: auto;
+	margin-top: 20px;
+}
+
+.text1{
+	margin-left: 5px;
+	margin-bottom: 5px;
+	font-weight: 600;
+	color: #6d6d70;
+	font-family: sans-serif;
+	font-size: 8px;
+	letter-spacing: 1px;
+}
+
+.text2{
+	margin-left: 5px;
+	color: #6d6d70;
+	font-family: helvetica;
+	font-size: 9px;
+	margin-top: 5px;
+	font-weight: 400;	
+}
+
+.text3{
+	font-family: helvetica;
+	margin-left: 5px;
+	font-size: 8px;
+	font-weight: 600;
+	margin-bottom:60px;
+}
+
+.text4{
+	margin-top: 20px;
+	margin-bottom:2px;
+	font-weight: 600;
+	font-family: helvetica;
+	font-size: 8px;
+	letter-spacing: 0.1px;
+	color: #757677;
+}
+
+.text5{
+	margin-top: 15px;
+	margin-bottom:10px;
+	font-family: sans-serif;
+	font-size: 6px;
+	letter-spacing: 1px;
+	color: #6d6d70;
+	font-weight: 600;
+}
+
+.text6{
+	color: white;
+	font-family: helvetica;
+	font-size: 9px;
+	margin-top: 30px;
+	margin-left: 60%;
+	position: absolute;
+	font-weight: bold;
+}
+
+.text-wrapper{
+	position: absolute;
+	background: white;
+	width:216px;
+	height:80px;
+	top: 37%;
+	left: 29%;
+}
+
+
+.img7{
+	background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image7.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 520px;
+	height: 340px;
+	left: 85px;
+	position: absolute;
+	text-align: center;
+}
+
+.lastpart{
+	width:650px;
+	margin-left: 15px;
+	height: 120px;
+	text-align: center;
+	padding-top: 350px;
+	padding-bottom: 20px;
+}
+
+.yellowbox{
+	position:relative;
+	background-color: #c19a49;
+	width:650px;
+	height:135px;
+}
+

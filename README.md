@@ -14,7 +14,7 @@ Design a web page using PHP
 # Hw8
 A demo website [Demo](http://csci11134nodejsforhw9.us-east-2.elasticbeanstalk.com/hw8.html)
 
-A place search webpage fetching data from Google and Yelp deployed on Amazon using Nginx as server with tools including Bootstrap, angularjs, jquery and nodejs, .
+A place search webpage fetching data from Google and Yelp deployed on Amazon using Nginx as server with tools including Bootstrap, angularjs, jquery and nodejs.
 
 # Hw9
 A place search Android app searching by name, location, distance, etc.

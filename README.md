@@ -12,7 +12,7 @@ Extract json file using javascript to design a web page
 Design a web page using PHP
 
 # Hw8
-A demo website [Demo](http://cs11134nojsforhw9.us-east-2.elasticbeanstalk.com/hw8.html)
+A demo website [Demo](http://csci11134nodejs.us-east-2.elasticbeanstalk.com/hw8.html)
 
 A place search webpage fetching data from Google and Yelp deployed on Amazon using Nginx as server with tools including Bootstrap, angularjs, jquery and nodejs.
 
